@@ -69,7 +69,14 @@ sudo nsenter -t $pidFront -n iptables -A INPUT -s $apiIp -p icmp --icmp-type ech
 #Bloque de trafico icmp de front a db
 sudo nsenter -t $pidFront -n iptables -A OUTPUT -d $dbIp -p icmp -j DROP
 ````
+Y se ejecuta:
+````
+chmod +x initialconf.sh
+bash initialconf.sh
+````
+
 De esta manera:
+- Existe acceso a localhost:8080 (frontend tiene acceso a internet).
 - Se bloquea el tráfico proveniente de api en frontend (ICMP echo request).
 - Se bloquea la comunicación db-front (Todo ICMP)
 - Existe resolución por nombre con todos los contenedores (Los contenedores se pueden ver los unos con los otros en diferentes redes).
